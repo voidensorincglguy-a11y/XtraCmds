@@ -32,6 +32,7 @@ Command.Font = Enum.Font.Code
 Command.TextSize = 20
 Command.Draggable = true
 getgenv().Crash = true
+getgenv().Ban = false
 
 local function Focused(EnterPressed)
 if EnterPressed then
@@ -47,19 +48,70 @@ if CmdText == "kick" or CmdText == "KICK" then
 chatEvent:FireServer("gear me cloner", "System")
 task.wait(0.1)
 chatEvent:FireServer("sword", "System")
-chatEvent:FireServer(">. kick " .. tostring(plr), "All")
+chatEvent:FireServer(">. LinkedSwordKick " .. tostring(plr), "All")
 chatEvent:FireServer("bring " .. tostring(plr), "System")
 task.wait(0.1)
-chatEvent:FireServer("to " .. tostring(plr), "System")
-task.wait(0.2)
 chatEvent:FireServer("freeze " .. tostring(plr), "System")
 task.wait(0.2)
 chatEvent:FireServer("size " .. tostring(plr) .. " nan", "System")
 task.wait(0.2)
 local gear = game:GetService("Players").LocalPlayer.Backpack["Gear Cloner"]
-gear.Parent = workspace.Plr
-chatEvent:FireServer("ungear" .. tostring(plr), "System")
+local LS = game.Players.LocalPlayer.Backpack:WaitForChild("LinkedSword", 2)
+local gearRequest = gear:WaitForChild("GearRequest", 3)
+gear.Parent = workspace:WaitForChild(plrName)
+task.wait(0.05)
+gearRequest:FireServer(LS)
+chatEvent:FireServer("ungear me", "System")
+
+elseif CmdText == "Blacklist" or CmdText == "blacklist" then
+
+player.PlayerAdded:Connect(function(Ply)
+
+local Name = Ply.Name
+if Name == plr then
+chatEvent:FireServer("gear me cloner", "System")
+task.wait(0.1)
+chatEvent:FireServer("sword", "System")
+chatEvent:FireServer("bring " .. tostring(plr), "System")
+task.wait(0.1)
+chatEvent:FireServer("freeze " .. tostring(plr), "System")
+task.wait(0.2)
+chatEvent:FireServer("size " .. tostring(plr) .. " nan", "System")
+task.wait(0.2)
+local gear = game:GetService("Players").LocalPlayer.Backpack["Gear Cloner"]
+local LS = game.Players.LocalPlayer.Backpack:WaitForChild("LinkedSword", 2)
+local gearRequest = gear:WaitForChild("GearRequest", 3)
+gear.Parent = workspace:WaitForChild(plrName)
+task.wait(0.115)
+gearRequest:FireServer(LS)
+chatEvent:FireServer("ungear me", "System")
+
+end
+
+end)
+
 elseif CmdText == "ClearMess" then
+
+chatEvent:FireServer("f3x", "System")
+task.wait(0.1)
+local BT = game.Players.LocalPlayer.Backpack:WaitForChild("Building Tools", 3)
+
+task.wait(3)
+if BT then
+local Ev = BT.SyncApi.ServerEndPoint
+if Ev then
+for _, v in pairs(workspace:GetChildren()) do
+Ev:InvokeServer(
+"Remove",
+
+{
+v
+}
+)
+end
+end
+end
+task.wait(1)
 chatEvent:FireServer("clr", "System")
 chatEvent:FireServer("fix", "System")
 chatEvent:FireServer(">. ClearMess", "All")
