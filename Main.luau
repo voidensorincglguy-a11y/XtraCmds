@@ -1,7 +1,5 @@
-
--- Command Script by me :)
--- Make sure to execute after you die
-
+-- Command Script by Fogged
+-- Inspiration by Harold, Nowhud, Names, Others
 
 local chatEvent = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
 
@@ -10,7 +8,6 @@ local player = players.LocalPlayer
 local plrName = player.Name
 local humanoid = player.Character.Humanoid
 
-local skipClicked = false
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
 local Command = Instance.new("TextBox", screenGui)
 local UiCorner = Instance.new("UICorner", Command)
@@ -18,21 +15,86 @@ local UiStroke = Instance.new("UIStroke", Command)
 
 UiStroke.ApplyStrokeMode = "Border"
 
+local MainGui = Instance.new("TextButton", screenGui)
+local FGui = Instance.new("Frame", screenGui)
+FGui.Position = UDim2.new(0.019, 0, 0.012, 0)
+FGui.Size = UDim2.new(0.865, 0, 0.758, 0)
+FGui.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+FGui.BackgroundTransparency = 1
+FGui.Draggable = true
+FGui.Visible = false
+MainGui.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+MainGui.Position = UDim2.new(0.893, 0, 0.02, 0)
+MainGui.Size = UDim2.new(0.091, 0, 0.081, 0)
+MainGui.BackgroundTransparency = 0.5
+local sf = Instance.new("ScrollingFrame", FGui)
+local L = Instance.new("TextLabel", sf)
+local UCC0 = Instance.new("UIListLayout", sf)
+local UCC4 = UiCorner:Clone()
+local UCC1 = UiCorner:Clone()
+local UCC3 = UiCorner:Clone()
+local UCC2 = UiStroke:Clone()
+UCC3.Parent = FGui
+UCC4.Parent = sf
+UCC2.Parent = MainGui
+UCC1.Parent = MainGui
+UCC0.FillDirection = Enum.FillDirection.Vertical
+sf.Size = UDim2.new(1,0,1,0)
+sf.CanvasSize = UDim2.new(0,0,2,0)
+sf.BackgroundColor3 = Color3.fromRGB(0,0,0)
+sf.BackgroundTransparency = 0.5
+L.Position = UDim2.new(0.024, 0, 0.014, 0)
+L.Size = UDim2.new(0.949, 0, 0.052, 0)
+L.TextColor3 = Color3.fromRGB(255,255,255)
+L.BackgroundTransparency = 1
+L.TextSize = 12
+L.Text = "kick (plr)"
+local L2 = L:Clone()
+local L3 = L:Clone()
+local L4 = L:Clone()
+local L5 = L:Clone()
+local L6 = L:Clone()
+local L7 = L:Clone()
+L2.Text = "blacklist (plr)"
+L2.Parent = sf
+L3.Text = "ClearMess"
+L3.Parent = sf
+L4.Text = "Nuke"
+L4.Parent = sf
+L5.Text = "SFling (plr)"
+L5.Parent = sf
+L6.Text = "Void (plr)"
+L6.Parent = sf
+L7.Text = "Anti"
+L7.Parent = sf
 
 screenGui.Name = "Extended CMD"
 screenGui.ResetOnSpawn = false
 Command.Name = "Commandbox"
 
 Command.Size = UDim2.new(0, 120, 0, 50)
-Command.Position = UDim2.new(0.425, 0, 0.65, 0)
+Command.Position = UDim2.new(0.689, 0, 0.82, 0)
 Command.PlaceholderText = "Input Command"
-Command.BackgroundColor3 = Color3.fromRGB(0, 5, 250)
+Command.BackgroundTransparency = 0.5
+Command.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 Command.TextColor3 = Color3.fromRGB(0, 0, 0)
 Command.Font = Enum.Font.Code
 Command.TextSize = 20
 Command.Draggable = true
+getgenv().Anti = false
 getgenv().Crash = true
 getgenv().Ban = false
+getgenv().Btn = false
+
+MainGui.Activated:Connect(function()
+if getgenv().Btn == false then
+FGui.Visible = true
+getgenv().Btn = true
+elseif getgenv().Btn == true then
+FGui.Visible = false
+getgenv().Btn = false
+end
+end)
 
 local function Focused(EnterPressed)
 if EnterPressed then
@@ -41,29 +103,27 @@ local ChatText = tostring(Command.Text)
 local TextArray = string.split(ChatText, " ")
 local plrName = tostring(player.Name)
 local plr = TextArray[2]
+local thrd = TextArray[3]
 local CmdText = TextArray[1]
 
-if CmdText == "kick" or CmdText == "KICK" then
+if CmdText:lower() == "kick" then
   
-chatEvent:FireServer("gear me cloner", "System")
-task.wait(0.1)
-chatEvent:FireServer("sword", "System")
-chatEvent:FireServer(">. LinkedSwordKick " .. tostring(plr), "All")
-chatEvent:FireServer("bring " .. tostring(plr), "System")
-task.wait(0.1)
-chatEvent:FireServer("freeze " .. tostring(plr), "System")
-task.wait(0.2)
-chatEvent:FireServer("size " .. tostring(plr) .. " nan", "System")
-task.wait(0.2)
-local gear = game:GetService("Players").LocalPlayer.Backpack["Gear Cloner"]
-local LS = game.Players.LocalPlayer.Backpack:WaitForChild("LinkedSword", 2)
-local gearRequest = gear:WaitForChild("GearRequest", 3)
-gear.Parent = workspace:WaitForChild(plrName)
-task.wait(0.05)
-gearRequest:FireServer(LS)
-chatEvent:FireServer("ungear me", "System")
+chatEvent:FireServer("gear me skate", "System")
+chatEvent:FireServer("f3x", "System")
 
-elseif CmdText == "Blacklist" or CmdText == "blacklist" then
+local x = game.Players.LocalPlayer.Backpack:WaitForChild("Building Tools")
+
+if x then
+local skate = workspace:WaitForChild("Skateboard")
+if skate then
+local Plat = skate.SkateboardPlatform
+
+
+end
+else
+
+end
+elseif CmdText:lower() == "Blacklist" then
 
 player.PlayerAdded:Connect(function(Ply)
 
@@ -82,7 +142,7 @@ local gear = game:GetService("Players").LocalPlayer.Backpack["Gear Cloner"]
 local LS = game.Players.LocalPlayer.Backpack:WaitForChild("LinkedSword", 2)
 local gearRequest = gear:WaitForChild("GearRequest", 3)
 gear.Parent = workspace:WaitForChild(plrName)
-task.wait(0.115)
+task.wait(0.05)
 gearRequest:FireServer(LS)
 chatEvent:FireServer("ungear me", "System")
 
@@ -90,58 +150,123 @@ end
 
 end)
 
-elseif CmdText == "ClearMess" then
+elseif CmdText:lower() == "clearmess" then
+-- Script generated by SimpleSpy - credits to exx#9394
 
-chatEvent:FireServer("f3x", "System")
-task.wait(0.1)
-local BT = game.Players.LocalPlayer.Backpack:WaitForChild("Building Tools", 3)
-
-task.wait(3)
-if BT then
-local Ev = BT.SyncApi.ServerEndPoint
-if Ev then
-for _, v in pairs(workspace:GetChildren()) do
-Ev:InvokeServer(
-"Remove",
-
-{
-v
+local args = {
+    [1] = "h OKohls\n\n\n\n\n < OKohls >The workspace has been cleaned up by washTheBumb\n\n\n\n\n",
+    [2] = "System"
 }
-)
-end
-end
-end
-task.wait(1)
-chatEvent:FireServer("clr", "System")
-chatEvent:FireServer("fix", "System")
+
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+local Clear = game.ReplicatedStorage.clearmap
+Clear:FireServer()
 chatEvent:FireServer(">. ClearMess", "All")
-  
-elseif ChatText == "help" then
-  
-print("ClearMess")
-print("Kick")
-print("Void")
-print("SFling")
-  
-elseif CmdText == "getAdmin" then
-  
-elseif CmdText == "Void" then
-  
+ 
+elseif CmdText:lower() == "perm" then
+if getgenv().Perm == false then
+getgenv().Perm = true
+while getgenv().Perm == true then
+
+local Hrp = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+local Terrain = workspace.Terrain._Game.Admin.Pads
+
+for _, Pad in pairs(Terrain:GetChildren())
+if Pad.Name == "Touch to get admin" then
+for _, Obj in pairs(Pad:GetChildren())
+if Obj.Name == "Head" then
+for _, B in pairs(Obj:GetChildren())
+if B == "TouchInterest" then
+Firetouchinterests(B, Hrp, 0)
+wait()
+Firetouchinterests(B, Hrp, 1)
+end
+end
+end
+end
+end
+end
+end
+end
+elseif CmdText:lower() == "antifreeze" then
+if getgenv().Anti == false then
+chatEvent:FireServer(">. AntiFreeze:True()", "All")
+getgenv().Anti = true
+while getgenv().Anti == true do
+task.wait(0.01)
+if getgenv().Anti == false then return end
+local Ply = game.Players.LocalPlayer
+local HRP = Ply.Character:WaitForChild("HumanoidRootPart")
+if HRP.Anchored == true then
+for _, v in pairs(Ply.Character:GetChildren()) do
+task.wait(0.01)
+if v:IsA("Part") then
+v.Anchored = false
+Ply.Character.Humanoid.WalkSpeed = 16
+end
+end
+
+local Ply2 = game.Players.LocalPlayer.Character.Humanoid
+Ply2.Died:Connect(function()
+chatEvent:FireServer("reset me", "System")
+end)
+
+end
+end
+end
+elseif CmdText:lower() == "unanti" then
+
+
+if getgenv().Anti == true then
+
+chatEvent:FireServer(">. Anti:False()", "All")
+getgenv().Anti = false
+
+end
+elseif CmdText:lower() == "antikick" then
+
+chatEvent:FireServer("ungear", "System")
+task.wait(0.1)
+chatEvent:FireServer("f3x", "System")
+task.wait(2)
+local ply3 = game:GetService("Players").LocalPlayer
+local fx = ply3:WaitForChild("Backpack"):WaitForChild("Building Tools").SyncAPI.ServerEndpoint
+task.wait(1)
+chatEvent:FireServer(">. AntiKick:True()", "All")
+local args2 = {
+    [1] = "SetParent",
+    [2] = {
+        [1] = game.Players.LocalPlayer.Character
+    },
+    [3] = workspace.Terrain
+}
+
+local args3 = {
+    [1] = "HttpServiceEnabled",
+}
+
+game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args3))
+game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args2))
+
+
+elseif CmdText:lower() == "void" then
 chatEvent:FireServer(">. Void " .. tostring(plr) ,"All")
 chatEvent:FireServer("setgrav " .. tostring(plr) .. " nan", "System")
-elseif CmdText == "SFling" then
+
+elseif CmdText:lower() == "SFling" then
   
 chatEvent:FireServer(">. SFling " .. tostring(plr) ,"All")
 for i = 1, 10, 1 do
 chatEvent:FireServer("fling " .. tostring(plr) , "System")
 end
   
-elseif CmdText == "Nuke" then
+elseif CmdText:lower() == "nuke" then
 chatEvent:FireServer(">. Nuke" ,"All")
 for i = 1, 10, 1 do
 chatEvent:FireServer("Explode all", "System")
 end
-elseif CmdText == "Periastrons" then
+elseif CmdText:lower() == "periastrons" then
+
 chatEvent:FireServer("gear ".. plr .. " Rainbow Periastron Omega", "System")
 chatEvent:FireServer("gear ".. plr .. " Noir Periastron Psi", "System")
 chatEvent:FireServer("gear ".. plr .. " Ivory Periastron", "System")
@@ -151,7 +276,9 @@ chatEvent:FireServer("gear ".. plr .. " Amethyst Periastron Kappa", "System")
 chatEvent:FireServer("gear ".. plr .. " Azure Periastron Alpha", "System")
 chatEvent:FireServer("gear ".. plr .. " Grimgold Periastron Beta", "System")
 chatEvent:FireServer(">. Periastrons ".. plr, "All")
-elseif CmdText == "Crash" then
+
+elseif CmdText:lower() == "crash" then
+
 while getgenv().Crash == true do
 if getgenv().Crash == false then return end
 chatEvent:FireServer("Explode all", "System")
@@ -164,10 +291,22 @@ chatEvent:FireServer("ambient 20, 200, 200", "System")
 chatEvent:FireServer("ambient 5, 6, 7", "System")
 chatEvent:FireServer("sm Crashing.", "System")
 task.wait(0.1)
+
 end
-elseif CmdText == "uncrash" then
+
+elseif CmdText:lower() == "uncrash" then
 getgenv().Crash = false
 return
+elseif CmdText:lower() == "tag" then
+chatEvent:FireServer(">. NameTag me ".. plr, "All")
+local args = {
+    [1] = "name ".. plr .." "..thrd.."\n".. player.Character.Humanoid.DisplayName,
+    [2] = "System"
+}
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+elseif CmdText:lower() == "unloadgui" then
+chatEvent:FireServer(">. UnloadGui", "All")
+screenGui:Destroy()
 else
 chatEvent:FireServer(ChatText, "System")
 end
