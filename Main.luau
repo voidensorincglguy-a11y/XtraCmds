@@ -1,6 +1,3 @@
--- Command Script by Fogged
--- Inspiration by Harold, Nowhud, Names, Others
-
 local chatEvent = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
 
 local players = game:GetService("Players")
@@ -27,6 +24,8 @@ MainGui.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 MainGui.Position = UDim2.new(0.893, 0, 0.02, 0)
 MainGui.Size = UDim2.new(0.091, 0, 0.081, 0)
 MainGui.BackgroundTransparency = 0.5
+MainGui.Text = "Main"
+MainGui.TextColor3 = Color3.fromRGB(255,255,255)
 local sf = Instance.new("ScrollingFrame", FGui)
 local L = Instance.new("TextLabel", sf)
 local UCC0 = Instance.new("UIListLayout", sf)
@@ -111,18 +110,20 @@ if CmdText:lower() == "kick" then
 chatEvent:FireServer("gear me skate", "System")
 chatEvent:FireServer("f3x", "System")
 
-local x = game.Players.LocalPlayer.Backpack:WaitForChild("Building Tools")
+local f3x = game.Players.LocalPlayer.Backpack:WaitForChild("Building Tools", 5)
+local SkateTool = game.Players.LocalPlayer.Backpack:WaitForChild("DastardlySkateboard")
+task.wait(2)
 
-if x then
+SkateTool.Parent = game.Players.LocalPlayer.Character
+
+task.wait(1)
+
+SkateTool:Activate()
+
+task.wait(1)
+
 local skate = workspace:WaitForChild("Skateboard")
-if skate then
-local Plat = skate.SkateboardPlatform
 
-
-end
-else
-
-end
 elseif CmdText:lower() == "Blacklist" then
 
 player.PlayerAdded:Connect(function(Ply)
@@ -163,31 +164,9 @@ local Clear = game.ReplicatedStorage.clearmap
 Clear:FireServer()
 chatEvent:FireServer(">. ClearMess", "All")
  
-elseif CmdText:lower() == "perm" then
-if getgenv().Perm == false then
-getgenv().Perm = true
-while getgenv().Perm == true then
+elseif CmdText == "getAdmin" then
+  
 
-local Hrp = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
-local Terrain = workspace.Terrain._Game.Admin.Pads
-
-for _, Pad in pairs(Terrain:GetChildren())
-if Pad.Name == "Touch to get admin" then
-for _, Obj in pairs(Pad:GetChildren())
-if Obj.Name == "Head" then
-for _, B in pairs(Obj:GetChildren())
-if B == "TouchInterest" then
-Firetouchinterests(B, Hrp, 0)
-wait()
-Firetouchinterests(B, Hrp, 1)
-end
-end
-end
-end
-end
-end
-end
-end
 elseif CmdText:lower() == "antifreeze" then
 if getgenv().Anti == false then
 chatEvent:FireServer(">. AntiFreeze:True()", "All")
@@ -307,6 +286,12 @@ game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageReque
 elseif CmdText:lower() == "unloadgui" then
 chatEvent:FireServer(">. UnloadGui", "All")
 screenGui:Destroy()
+elseif CmdText:lower() == "rspy" then
+chatEvent:FireServer(">. Rspy", "All")
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-SimpleSpy-V3-224616"))()
+elseif CmdText == "dex" then
+chatEvent:FireServer(">. Dex", "All")
+loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Dex-PlusPlus-Decompiler-Fix-206651"))()
 else
 chatEvent:FireServer(ChatText, "System")
 end
